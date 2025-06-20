@@ -1,6 +1,5 @@
 # Elasticsearch Dummy Data Generator
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A simple yet powerful web application to generate and index large volumes of realistic sample data (web access logs or financial transactions) into your Elasticsearch cluster. Ideal for performance testing, demonstrations, or populating your development environment with meaningful data.
 
