@@ -22,7 +22,7 @@ A simple yet powerful web application to generate and index large volumes of rea
 
 ## About The Project
 
-This project provides a web interface built with Flask and TailwindCSS to configure and launch a data generation task. The backend uses a Python script to generate structured fake data using the `Faker` library and efficiently indexes it into a specified Elasticsearch cluster using the bulk API.
+This project provides a web interface built with Flaskto configure and launch a data generation task. The backend uses a Python script to generate structured fake data using the `Faker` library and efficiently indexes it into a specified Elasticsearch cluster using the bulk API.
 
 The main goal is to remove the hassle of creating manual scripts to populate Elasticsearch, by providing a "plug-and-play" tool that anyone can run locally.
 
