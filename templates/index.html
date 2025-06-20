@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dummy Transaction Data Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to bottom right, #1e293b, #0f172a);
+      min-height: 100vh;
+      padding: 2rem;
+      color: #f8fafc;
+    }
+    .input {
+      width: 100%;
+      height: 3rem;
+      padding: 0.75rem 1rem;
+      background-color: #334155;
+      border: 1px solid #475569;
+      border-radius: 0.25rem;
+      color: #f8fafc;
+      transition: all 0.2s ease-in-out;
+    }
+    .input:focus {
+      outline: none;
+      border-color: #f97316;
+      box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.5);
+    }
+    select.input {
+      padding-right: 2.5rem;
+    }
+    .button {
+      height: 3.5rem;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to right, #ea580c, #d97706);
+      color: white;
+      font-weight: 600;
+      font-size: 1.125rem;
+      border-radius: 0.25rem;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+    }
+    .button:hover {
+      background: linear-gradient(to right, #c2410c, #b45309);
+      transform: scale(1.02);
+    }
+    .log-line.error { color: #f87171; }
+    .log-line.success { color: #34d399; }
+    .log-line.warning { color: #fbbf24; }
+    .log-line.info { color: #94a3b8; }
+    .log-area {
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 0.25rem;
+      padding: 1rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: #cbd5e1;
+      overflow-y: auto;
+      border: 1px solid #475569;
+      max-height: 400px;
+      min-height: 150px;
+    }
+  </style>
+</head>
+<body class="flex justify-center">
+  <div class="w-full max-w-2xl">
+    <div class="text-center mb-10">
+      <div class="w-16 h-16 mx-auto flex items-center justify-center rounded-sm bg-gradient-to-r from-slate-700 to-gray-800 border border-slate-600 shadow-lg mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-orange-500">
+          <ellipse cx="12" cy="5" rx="9" ry="3"/>
+          <path d="M3 5v14a9 3 0 0 0 18 0V5"/>
+          <path d="M3 12a9 3 0 0 0 18 0"/>
+        </svg>
+      </div>
+      <h1 class="text-3xl font-bold bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent mb-2">
+        Dummy Transaction Data Generator
+      </h1>
+      <p class="text-gray-400">Generate and index sample data to your Elasticsearch cluster</p>
+    </div>
+
+    <div class="bg-slate-800/90 border border-slate-700 rounded-sm shadow-xl p-6">
+      <h2 class="text-2xl font-bold text-center mb-2">Configuration</h2>
+      <p class="text-center text-gray-400 mb-6">Enter your Elasticsearch connection details to get started</p>
+      <form id="indexingForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold text-gray-300 mb-1">Elasticsearch URL and Port Number</label>
+          <input type="text" name="es_host" placeholder="e.g., https://your-elastic-host.com:9243" class="input" required />
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-300 mb-1">Username</label>
+            <input type="text" name="es_username" placeholder="Your Elasticsearch Username" class="input" required />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-300 mb-1">Password</label>
+            <input type="password" name="es_password" placeholder="Your Elasticsearch Password" class="input" required />
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-300 mb-1">Target Index</label>
+          <input type="text" name="target_index" value="bank_transactions" class="input" required />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-300 mb-1">Total Data Size (MB)</label>
+          <input type="number" name="total_size_mb" value="100" min="1" class="input" required />
+          <p class="text-xs text-gray-500 mt-1">Total amount of data to be generated and indexed (in Megabytes).</p>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-300 mb-1">Data Type</label>
+          <select name="data_type" class="input">
+            <option value="transaction">Transaction</option>
+            <option value="access_log">Access Log</option>
+          </select>
+        </div>
+        <button type="submit" class="button">
+          <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          Start Data Indexing
+        </button>
+      </form>
+    </div>
+
+    <div class="bg-slate-800/90 border border-slate-700 rounded-sm shadow-xl p-6 mt-8">
+      <h2 class="text-xl font-bold text-orange-500 mb-2">Log Output</h2>
+      <p class="text-sm text-gray-400 mb-2">Real-time output from the data indexing process</p>
+      <div id="log-output" class="log-area">
+        <div class="text-gray-500 italic">No logs yet. Start the indexing process to see output...</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('indexingForm');
+    const logOutput = document.getElementById('log-output');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      logOutput.innerHTML = '';
+      const formData = new FormData(form);
+      const params = new URLSearchParams(formData);
+
+      const res = await fetch('/start_indexing', {
+        method: 'POST',
+        body: params,
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      });
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let { value, done } = await reader.read();
+
+      while (!done) {
+        const chunk = decoder.decode(value, { stream: true });
+        chunk.split('\n').forEach(line => {
+          if (line) {
+            const div = document.createElement('div');
+            div.textContent = line;
+            div.classList.add('log-line');
+            if (line.includes('ERROR')) div.classList.add('error');
+            else if (line.includes('SUCCESS')) div.classList.add('success');
+            else if (line.includes('WARNING')) div.classList.add('warning');
+            else div.classList.add('info');
+            logOutput.appendChild(div);
+            logOutput.scrollTop = logOutput.scrollHeight;
+          }
+        });
+        ({ value, done } = await reader.read());
+      }
+    });
+  </script>
+</body>
+</html>
