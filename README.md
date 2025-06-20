@@ -4,7 +4,8 @@
 
 A simple yet powerful web application to generate and index large volumes of realistic sample data (web access logs or financial transactions) into your Elasticsearch cluster. Ideal for performance testing, demonstrations, or populating your development environment with meaningful data.
 
-![Application Screenshot](https://i.imgur.com/vHqB7EB.png)
+![image](https://github.com/user-attachments/assets/7f9e9908-7bb3-4527-90c7-074bd16268a9)
+
 
 ## Table of Contents
 - [About The Project](#about-the-project)
