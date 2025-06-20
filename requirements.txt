@@ -1,0 +1,4 @@
+Flask
+elasticsearch
+Faker
+tqdm
